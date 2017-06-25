@@ -30,8 +30,10 @@ var productlistcomponent = (function () {
         this.showImage = !this.showImage;
     };
     productlistcomponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log("in oninit");
-        this.products = this._productService.getProducts();
+        this._productService.getProducts()
+            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
     };
     productlistcomponent.prototype.onRatingClicked = function (message) {
         this.pageTitle = 'product List ' + message;

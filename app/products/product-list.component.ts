@@ -14,7 +14,7 @@ export class productlistcomponent implements OnInit{
     showImage:boolean =false;
     listFilter:string ='';
     products:IProduct[];
-
+    errorMessage:string;
 
 
 
@@ -24,7 +24,11 @@ export class productlistcomponent implements OnInit{
 
     ngOnInit(): void{
         console.log("in oninit");
-        this.products =this._productService.getProducts();
+        this._productService.getProducts()
+        .subscribe(
+            products => this.products = products,
+            error => this.errorMessage = <any>error
+        );
     }
     onRatingClicked(message:string):void {
         this.pageTitle='product List '+ message ;
